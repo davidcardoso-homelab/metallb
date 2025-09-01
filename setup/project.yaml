@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: metallb
+  namespace: argocd
+spec:
+  description: Projeto do MetalLB gerenciado pelo ArgoCD
+  sourceRepos:
+    - 'git@github.com:davidcardoso-homelab/metallb.git'
+    - 'https://github.com/metallb/metallb.git'
+  destinations:
+    - namespace: metallb-system
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  orphanedResources:
+    warn: true
